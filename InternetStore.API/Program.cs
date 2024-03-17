@@ -10,13 +10,11 @@ using Microsoft.EntityFrameworkCore;
 
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection(nameof(JwtOptions)));
 
 string connection = builder.Configuration.GetConnectionString("ProductStoreDBcontext") ?? throw new InvalidOperationException("Connection string 'ShopMVCConnection' not found.");
 
@@ -39,9 +37,6 @@ builder.Services.AddScoped<IJwtProvider, JwtProvider>();
 
 //Passwotd hasher
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
-
-
-
 
 var app = builder.Build();
 

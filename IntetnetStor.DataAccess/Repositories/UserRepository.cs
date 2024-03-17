@@ -33,7 +33,7 @@ namespace IntetnetStore.DataAccess.Repositories
 				.AsNoTracking()
 				.FirstOrDefaultAsync(x => x.Email == email) ?? throw new Exception();
 
-			return User.Create(userEntity.Id, userEntity.UserName, userEntity.PasswordHash, userEntity.Email).User;
+			return User.Create(userEntity.Id, userEntity.UserName, userEntity.Email, userEntity.PasswordHash).User;
 		}
 	}
 }
