@@ -1,4 +1,5 @@
 
+using InternetStore.API.Extensions;
 using InternetStore.Application.Services;
 using InternetStore.Core.Abstractions;
 using InternetStore.DataAccess;
@@ -6,7 +7,9 @@ using InternetStore.DataAccess.Repositories;
 using InternetStore.Infrastructure;
 using IntetnetStore.DataAccess.Repositories;
 using IntetnetStore.DataAccess.Seeder;
+using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +22,12 @@ builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection(nameof(J
 string connection = builder.Configuration.GetConnectionString("ProductStoreDBcontext") ?? throw new InvalidOperationException("Connection string 'ShopMVCConnection' not found.");
 
 builder.Services.AddDbContext<ProductStorDBcontext>(options => options.UseSqlServer(connection));
+
+builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddApiAuthentication(builder.Configuration);
+builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection(nameof(JwtOptions)));
+
 
 //Product service
 builder.Services.AddScoped<IProductsService, ProductsService>();
@@ -53,6 +62,17 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseAuthentication();
+
+app.UseAuthorization();
+
+app.UseCookiePolicy(new CookiePolicyOptions
+{
+	MinimumSameSitePolicy = SameSiteMode.Strict,
+	HttpOnly = HttpOnlyPolicy.Always,
+	Secure = CookieSecurePolicy.Always
+});
 
 app.UseCors(x =>
 {

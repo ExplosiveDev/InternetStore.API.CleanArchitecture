@@ -2,10 +2,13 @@
 using InternetStore.API.Contracts;
 using InternetStore.Application.Services;
 using InternetStore.Core.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InternetStore.API.Controllers
 {
+	[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 	[ApiController]
 	[Route("[controller]")]
 	public class ProductsController : ControllerBase
@@ -16,6 +19,7 @@ namespace InternetStore.API.Controllers
 		{
 			_productsService = productsService;
 		}
+
 
 		[HttpGet]
 		public async Task<ActionResult<List<ProductsResponse>>> GetProducts()

@@ -9,10 +9,12 @@ namespace InternetStore.API.Controllers
 	public class UsersController : ControllerBase
 	{
 		private readonly IUserService _userService;
+		private readonly IHttpContextAccessor _context;
 
-		public UsersController(IUserService userService)
+		public UsersController(IUserService userService, IHttpContextAccessor context)
 		{
 			_userService = userService;
+			_context = context;
 		}
 
 		[HttpPost("register")]
@@ -27,6 +29,8 @@ namespace InternetStore.API.Controllers
 		public async Task<ActionResult> Login([FromBody] LoginUserRequest request)
 		{
 			var token = await _userService.Login(request.Email, request.Password);
+
+			_context.HttpContext.Response.Cookies.Append("tasty-cookies", token);
 
 			return Ok(token);
 		}
