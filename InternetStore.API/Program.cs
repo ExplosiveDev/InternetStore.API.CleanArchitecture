@@ -5,6 +5,7 @@ using InternetStore.Core.Abstractions;
 using InternetStore.DataAccess;
 using InternetStore.DataAccess.Repositories;
 using InternetStore.Infrastructure;
+using IntetnetStore.DataAccess;
 using IntetnetStore.DataAccess.Repositories;
 using IntetnetStore.DataAccess.Seeder;
 using Microsoft.AspNetCore.CookiePolicy;
@@ -18,6 +19,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection(nameof(JwtOptions)));
+builder.Services.Configure<AuthorizationOptions>(builder.Configuration.GetSection(nameof(AuthorizationOptions)));
+
+
 
 string connection = builder.Configuration.GetConnectionString("ProductStoreDBcontext") ?? throw new InvalidOperationException("Connection string 'ShopMVCConnection' not found.");
 
@@ -80,5 +84,7 @@ app.UseCors(x =>
 	x.WithOrigins("http://localhost:5173");
 	x.WithMethods().AllowAnyMethod();
 });
+
+var b = builder.Configuration.GetSection(nameof(AuthorizationOptions)) as AuthorizationOptions;
 
 app.Run();

@@ -8,7 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace InternetStore.API.Controllers
 {
-	[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+	[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)
+		/*Policy = "AdminPolicy")*/]
 	[ApiController]
 	[Route("[controller]")]
 	public class ProductsController : ControllerBase
@@ -19,7 +20,6 @@ namespace InternetStore.API.Controllers
 		{
 			_productsService = productsService;
 		}
-
 
 		[HttpGet]
 		public async Task<ActionResult<List<ProductsResponse>>> GetProducts()
@@ -57,6 +57,7 @@ namespace InternetStore.API.Controllers
 
 			return Ok(ProductId);
 		}
+
 		[HttpPut("{id:guid}")]
 		public async Task<ActionResult<Guid>> UpdateProducts(Guid id, [FromBody] ProductsRequest request)
 		{
