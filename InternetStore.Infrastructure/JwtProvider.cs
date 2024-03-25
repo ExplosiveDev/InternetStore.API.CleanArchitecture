@@ -20,7 +20,6 @@ namespace InternetStore.Infrastructure
 		{
 			Claim[] claims = [
 				new("userId", user.Id.ToString()),
-				new("Admin","true")
 				];
 
 			var signingCredentials = new SigningCredentials(

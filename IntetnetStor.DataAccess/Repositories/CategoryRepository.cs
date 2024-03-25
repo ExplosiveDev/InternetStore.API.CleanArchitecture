@@ -8,8 +8,8 @@ namespace IntetnetStore.DataAccess.Repositories
 {
 	public class CategoryRepository : ICategoryRepository
 	{
-		private readonly ProductStorDBcontext _context;
-		public CategoryRepository(ProductStorDBcontext context)
+		private readonly ProductStoreDBcontext _context;
+		public CategoryRepository(ProductStoreDBcontext context)
 		{
 			_context = context;
 		}

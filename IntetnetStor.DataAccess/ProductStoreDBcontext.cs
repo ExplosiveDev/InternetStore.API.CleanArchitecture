@@ -8,9 +8,9 @@ using IntetnetStore.DataAccess.Configuration;
 
 namespace InternetStore.DataAccess
 {
-	public class ProductStorDBcontext(
-		DbContextOptions<ProductStorDBcontext> options,
-		IOptions<AuthorizationOptions> authOptions) : DbContext(options)
+	public class ProductStoreDBcontext(
+		DbContextOptions<ProductStoreDBcontext> options,
+		IOptions<AuthorizationOption> authOptions) : DbContext(options)
 	{
 
 		public DbSet<ProductEntity> Products { get; set; }
@@ -20,7 +20,7 @@ namespace InternetStore.DataAccess
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			modelBuilder.ApplyConfigurationsFromAssembly(typeof(ProductStorDBcontext).Assembly);
+			modelBuilder.ApplyConfigurationsFromAssembly(typeof(ProductStoreDBcontext).Assembly);
 
 			modelBuilder.ApplyConfiguration(new RolePermissionConfiguration(authOptions.Value));
 

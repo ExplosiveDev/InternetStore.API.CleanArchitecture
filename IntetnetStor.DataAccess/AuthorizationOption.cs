@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IntetnetStore.DataAccess
 {
-	public class AuthorizationOptions
+	public class AuthorizationOption
 	{
 		public RolePermissions[] RolePermissions { get; set; } = [];
 	}

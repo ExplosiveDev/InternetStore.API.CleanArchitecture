@@ -6,8 +6,8 @@ namespace InternetStore.DataAccess.Repositories
 {
 	public class ProductsRepository : IProductsRepository
 	{
-		private readonly ProductStorDBcontext _context;
-		public ProductsRepository(ProductStorDBcontext context)
+		private readonly ProductStoreDBcontext _context;
+		public ProductsRepository(ProductStoreDBcontext context)
 		{
 			_context = context;
 		}

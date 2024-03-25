@@ -1,4 +1,6 @@
-﻿using InternetStore.Infrastructure;
+﻿using InternetStore.API.Endpoints;
+using InternetStore.Core.Enums;
+using InternetStore.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -8,6 +10,10 @@ namespace InternetStore.API.Extensions
 {
 	public static class ApiExtensions
 	{
+		public static void AddMappedEndpoints(this IEndpointRouteBuilder app)
+		{
+			app.MapProductEndpoints();
+		}
 		public static void AddApiAuthentication(this IServiceCollection services, IConfiguration configuration)
 		{
 			var jwtOptions = configuration.GetSection(nameof(JwtOptions)).Get<JwtOptions>();
@@ -36,14 +42,14 @@ namespace InternetStore.API.Extensions
 					};
 				});
 
-			//services.AddAuthorization(options =>
-			//{
-			//	options.AddPolicy("AdminPolicy", policy =>
-			//	{
-			//	});
-			//});
-
-
+		}
+		public static IEndpointConventionBuilder RequirePermissions<TBuilder>(
+		this TBuilder builder, params Permission[] permissions)
+			where TBuilder : IEndpointConventionBuilder
+		{
+			return builder
+				.RequireAuthorization(pb =>
+					pb.AddRequirements(new PermissionRequirement(permissions)));
 		}
 	}
 }

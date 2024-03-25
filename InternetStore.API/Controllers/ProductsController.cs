@@ -8,8 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace InternetStore.API.Controllers
 {
-	[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)
-		/*Policy = "AdminPolicy")*/]
+	[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 	[ApiController]
 	[Route("[controller]")]
 	public class ProductsController : ControllerBase
@@ -26,7 +25,7 @@ namespace InternetStore.API.Controllers
 		{
 			var products = await _productsService.GetAllProducts();
 
-			var response = products.Select(p => new ProductsResponse(p.Id, p.Name, p.Description, p.Price, p.ImagePath, p.Count, 
+			var response = products.Select(p => new ProductsResponse(p.Id, p.Name, p.Description, p.Price, p.ImagePath, p.Count,
 				Category.Create(p.Category.Id, p.Category.Name).Category, p.CategoryId));
 			return Ok(response);
 		}
@@ -36,7 +35,7 @@ namespace InternetStore.API.Controllers
 		{
 			var product = await _productsService.GetByIdProduct(id);
 
-			var response = new ProductsResponse(product.Id, product.Name, product.Description, product.Price, product.ImagePath, product.Count, 
+			var response = new ProductsResponse(product.Id, product.Name, product.Description, product.Price, product.ImagePath, product.Count,
 				Category.Create(product.Category.Id, product.Category.Name).Category, product.CategoryId);
 
 			return Ok(response);
@@ -45,10 +44,10 @@ namespace InternetStore.API.Controllers
 		[HttpPost]
 		public async Task<ActionResult<Guid>> CreateProducts([FromBody] ProductsRequest request)
 		{
-			var (product, error) = Product.Create(Guid.NewGuid(),request.Name,request.Description,request.Price,request.ImagePath,request.Count, 
+			var (product, error) = Product.Create(Guid.NewGuid(), request.Name, request.Description, request.Price, request.ImagePath, request.Count,
 				Category.Create(request.Category.Id, request.Category.Name).Category, request.CategoryId);
 
-			if(!string.IsNullOrEmpty(error))
+			if (!string.IsNullOrEmpty(error))
 			{
 				return BadRequest(error);
 			}

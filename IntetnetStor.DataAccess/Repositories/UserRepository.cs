@@ -1,4 +1,5 @@
 ﻿using InternetStore.Core.Abstractions;
+using InternetStore.Core.Enums;
 using InternetStore.Core.Models;
 using InternetStore.DataAccess;
 using IntetnetStore.DataAccess.Entities;
@@ -8,8 +9,8 @@ namespace IntetnetStore.DataAccess.Repositories
 {
 	public class UserRepository : IUserRepository
 	{
-		private readonly ProductStorDBcontext _context;
-		public UserRepository(ProductStorDBcontext context)
+		private readonly ProductStoreDBcontext _context;
+		public UserRepository(ProductStoreDBcontext context)
 		{
 			_context = context;
 		}
@@ -34,6 +35,23 @@ namespace IntetnetStore.DataAccess.Repositories
 				.FirstOrDefaultAsync(x => x.Email == email) ?? throw new Exception();
 
 			return User.Create(userEntity.Id, userEntity.UserName, userEntity.Email, userEntity.PasswordHash).User;
+		}
+
+		public async Task<HashSet<Permission>> GetUserPermissions(Guid userId)
+		{
+			var roles = await _context.Users
+				.AsNoTracking()
+				.Include(u => u.Roles)
+				.ThenInclude(r => r.Permissions)
+				.Where(u => u.Id == userId)
+				.Select(u => u.Roles)
+				.ToArrayAsync();
+
+			return roles
+				.SelectMany(r => r)
+				.SelectMany(r => r.Permissions)
+				.Select(p => (Permission)p.Id)
+				.ToHashSet();
 		}
 	}
 }

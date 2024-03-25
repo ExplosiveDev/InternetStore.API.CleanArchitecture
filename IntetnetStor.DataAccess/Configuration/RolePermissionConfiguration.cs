@@ -14,9 +14,9 @@ namespace IntetnetStore.DataAccess.Configuration
 {
 	public class RolePermissionConfiguration : IEntityTypeConfiguration<RolePermissionEntity>
 	{
-		private readonly AuthorizationOptions _authorization;
+		private readonly AuthorizationOption _authorization;
 
-		public RolePermissionConfiguration(AuthorizationOptions authorization)
+		public RolePermissionConfiguration(AuthorizationOption authorization)
 		{
 			_authorization = authorization;
 		}

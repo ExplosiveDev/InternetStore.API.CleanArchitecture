@@ -1,4 +1,5 @@
-﻿using InternetStore.Core.Models;
+﻿using InternetStore.Core.Enums;
+using InternetStore.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,6 @@ namespace InternetStore.Core.Abstractions
 	{
 		public Task Add(User user);
 		public Task<User> GetByEmail(string email);
+		public Task<HashSet<Permission>> GetUserPermissions(Guid userId);
 	}
 }
