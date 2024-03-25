@@ -17,12 +17,6 @@ namespace IntetnetStore.DataAccess.Configuration
 		{
 			builder.HasKey(x => x.Id);
 
-			builder.HasMany(r => r.Permissions)
-				.WithMany(p => p.Roles)
-				.UsingEntity<RolePermissionEntity>(
-					l => l.HasOne<PermissionEntity>().WithMany().HasForeignKey(e => e.PermissionId),
-					r => r.HasOne<RoleEntity>().WithMany().HasForeignKey(e => e.RoleId));
-
 			var roles = Enum
 				.GetValues<Role>()
 				.Select(x => new RoleEntity

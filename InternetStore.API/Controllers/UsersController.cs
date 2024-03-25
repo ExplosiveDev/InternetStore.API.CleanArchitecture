@@ -30,8 +30,6 @@ namespace InternetStore.API.Controllers
 		{
 			var token = await _userService.Login(request.Email, request.Password);
 
-			_context.HttpContext.Response.Cookies.Append("tasty-cookies", token);
-
 			return Ok(token);
 		}
 	}

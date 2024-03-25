@@ -40,9 +40,6 @@ builder.Services.AddScoped<IJwtProvider, JwtProvider>();
 //Password hasher
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 
-//Permission service
-builder.Services.AddScoped<IPermissionService, PermissionService>();
-builder.Services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
 
 //Data Access
 builder.Services.AddDataAccess(builder.Configuration);

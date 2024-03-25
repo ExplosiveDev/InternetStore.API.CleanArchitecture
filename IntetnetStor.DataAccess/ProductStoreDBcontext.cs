@@ -22,8 +22,6 @@ namespace InternetStore.DataAccess
 		{
 			modelBuilder.ApplyConfigurationsFromAssembly(typeof(ProductStoreDBcontext).Assembly);
 
-			modelBuilder.ApplyConfiguration(new RolePermissionConfiguration(authOptions.Value));
-
 			modelBuilder.Entity<CategoryEntity>().HasData(SeedData.GetCategory());
 			modelBuilder.Entity<ProductEntity>().HasData(SeedData.GetProduct());
 		}

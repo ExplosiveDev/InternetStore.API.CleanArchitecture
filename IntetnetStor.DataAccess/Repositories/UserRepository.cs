@@ -36,22 +36,5 @@ namespace IntetnetStore.DataAccess.Repositories
 
 			return User.Create(userEntity.Id, userEntity.UserName, userEntity.Email, userEntity.PasswordHash).User;
 		}
-
-		public async Task<HashSet<Permission>> GetUserPermissions(Guid userId)
-		{
-			var roles = await _context.Users
-				.AsNoTracking()
-				.Include(u => u.Roles)
-				.ThenInclude(r => r.Permissions)
-				.Where(u => u.Id == userId)
-				.Select(u => u.Roles)
-				.ToArrayAsync();
-
-			return roles
-				.SelectMany(r => r)
-				.SelectMany(r => r.Permissions)
-				.Select(p => (Permission)p.Id)
-				.ToHashSet();
-		}
 	}
 }

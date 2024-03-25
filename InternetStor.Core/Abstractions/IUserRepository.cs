@@ -12,6 +12,5 @@ namespace InternetStore.Core.Abstractions
 	{
 		public Task Add(User user);
 		public Task<User> GetByEmail(string email);
-		public Task<HashSet<Permission>> GetUserPermissions(Guid userId);
 	}
 }
