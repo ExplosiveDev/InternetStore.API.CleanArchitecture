@@ -32,7 +32,7 @@ namespace InternetStore.Application.Services
 			await _userRepository.Add(user);
 		}
 
-		public async Task<string> Login(string email, string password)
+		public async Task<(User user, string token)> Login(string email, string password)
 		{
 			var user = await _userRepository.GetByEmail(email);
 
@@ -45,7 +45,7 @@ namespace InternetStore.Application.Services
 
 			var token = _jwtProvider.GenerateToken(user);
 
-			return token;
+			return (User.Create(user.Id,user.UserName,user.Email,"password").User, token);
 		}
 	}
 }

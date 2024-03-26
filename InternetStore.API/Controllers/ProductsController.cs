@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace InternetStore.API.Controllers
 {
-	//[Authorize (AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+	[Authorize /*(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)*/]
 	[ApiController]
 	[Route("[controller]")]
 	public class ProductsController : ControllerBase

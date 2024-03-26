@@ -55,6 +55,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseMiddleware<RequestLogContextMiddleware>();
@@ -63,7 +64,7 @@ app.UseSerilogRequestLogging();
 
 app.MapControllers();
 
-app.UseAuthentication();
+
 
 app.UseCookiePolicy(new CookiePolicyOptions
 {

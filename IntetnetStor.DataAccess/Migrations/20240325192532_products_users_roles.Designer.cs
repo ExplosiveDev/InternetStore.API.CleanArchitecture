@@ -4,6 +4,7 @@ using InternetStore.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IntetnetStore.DataAccess.Migrations
 {
     [DbContext(typeof(ProductStoreDBcontext))]
-    partial class ProductStorDBcontextModelSnapshot : ModelSnapshot
+    [Migration("20240325192532_products_users_roles")]
+    partial class products_users_roles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,7 +62,7 @@ namespace IntetnetStore.DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("717141b9-5b78-4759-bb6f-f10f3f8b301b"),
+                            Id = new Guid("1cf987b5-bfae-48ef-9f00-34e4c9115f4e"),
                             CategoryId = new Guid("b61decb4-84d9-4057-b1e4-d7fb612d1d8f"),
                             Count = 1,
                             Description = "A715-42G-R3EZ (NH.QBFEU.00C) Charcoal Black / AMD Ryzen 5 5500U / RAM 16 ГБ / SSD 512 ГБ / nVidia GeForce GTX 1650",
@@ -69,7 +72,7 @@ namespace IntetnetStore.DataAccess.Migrations
                         },
                         new
                         {
-                            Id = new Guid("c110aae5-e603-4663-af08-739558b8e7d3"),
+                            Id = new Guid("415d0bfb-bd53-4e0a-bf83-2dccd2e83f39"),
                             CategoryId = new Guid("b61decb4-84d9-4057-b1e4-d7fb612d1d8f"),
                             Count = 1,
                             Description = "X515EA-BQ2066 (90NB0TY1-M00VF0) Slate Grey / 15.6\" IPS Full HD / Intel Core i3-1115G4 / RAM 12 ГБ / SSD 512 ГБ",
@@ -79,7 +82,7 @@ namespace IntetnetStore.DataAccess.Migrations
                         },
                         new
                         {
-                            Id = new Guid("ec0051fd-9f42-49aa-a881-c39e085a9ad0"),
+                            Id = new Guid("cbfc4ec8-ef3a-473e-8142-6ced8c6c66c8"),
                             CategoryId = new Guid("b61decb4-84d9-4057-b1e4-d7fb612d1d8f"),
                             Count = 1,
                             Description = "Екран 15.6\" IPS (1920x1080) Full HD, матовий / AMD Ryzen 3 7320U (2.4 - 4.1 ГГц) / RAM 16 ГБ / SSD 512 ГБ / AMD Radeon 610M Graphics / без ОД / Wi-Fi / Bluetooth / веб-камера / без ОС / 1.58 кг / сірий",
@@ -89,7 +92,7 @@ namespace IntetnetStore.DataAccess.Migrations
                         },
                         new
                         {
-                            Id = new Guid("78fbcc84-0ac3-4708-8edc-c19295f8a097"),
+                            Id = new Guid("346d0e7f-8e21-47c4-9997-5fc53f2effdc"),
                             CategoryId = new Guid("7d7dde3b-1176-47fa-86d4-be71afd4ffce"),
                             Count = 1,
                             Description = "Екран (6.7, OLED (Super Retina XDR), 2796x1290) / Apple A17 Pro / основна потрійна камера: 48 Мп + 12 Мп + 12 Мп, фронтальна камера: 12 Мп / 256 ГБ вбудованої пам'яті / 3G / LTE / 5G / GPS / Nano-SIM / iOS 17",
@@ -132,45 +135,6 @@ namespace IntetnetStore.DataAccess.Migrations
                         });
                 });
 
-            modelBuilder.Entity("IntetnetStore.DataAccess.Entities.PermissionEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("PermissionEntity");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Read"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Create"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Update"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Delete"
-                        });
-                });
-
             modelBuilder.Entity("IntetnetStore.DataAccess.Entities.RoleEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -197,48 +161,6 @@ namespace IntetnetStore.DataAccess.Migrations
                         {
                             Id = 2,
                             Name = "User"
-                        });
-                });
-
-            modelBuilder.Entity("IntetnetStore.DataAccess.Entities.RolePermissionEntity", b =>
-                {
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PermissionId")
-                        .HasColumnType("int");
-
-                    b.HasKey("RoleId", "PermissionId");
-
-                    b.HasIndex("PermissionId");
-
-                    b.ToTable("RolePermissionEntity");
-
-                    b.HasData(
-                        new
-                        {
-                            RoleId = 1,
-                            PermissionId = 2
-                        },
-                        new
-                        {
-                            RoleId = 1,
-                            PermissionId = 1
-                        },
-                        new
-                        {
-                            RoleId = 1,
-                            PermissionId = 3
-                        },
-                        new
-                        {
-                            RoleId = 1,
-                            PermissionId = 4
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            PermissionId = 1
                         });
                 });
 
@@ -290,21 +212,6 @@ namespace IntetnetStore.DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("IntetnetStore.DataAccess.Entities.RolePermissionEntity", b =>
-                {
-                    b.HasOne("IntetnetStore.DataAccess.Entities.PermissionEntity", null)
-                        .WithMany()
-                        .HasForeignKey("PermissionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("IntetnetStore.DataAccess.Entities.RoleEntity", null)
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("IntetnetStore.DataAccess.Entities.UserRoleEntity", b =>

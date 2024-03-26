@@ -14,9 +14,16 @@ namespace InternetStore.API.Extensions
 		{
 			var jwtOptions = configuration.GetSection(nameof(JwtOptions)).Get<JwtOptions>();
 
-			services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+
+			services.AddAuthentication(x =>
+			{
+				x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+				x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+			})
 				.AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
 				{
+					options.RequireHttpsMetadata = false;
+					options.SaveToken = true;
 					options.TokenValidationParameters = new TokenValidationParameters()
 					{
 						ValidateIssuer = false,
@@ -25,16 +32,6 @@ namespace InternetStore.API.Extensions
 						ValidateIssuerSigningKey = false,
 						IssuerSigningKey = new SymmetricSecurityKey(
 						Encoding.UTF8.GetBytes(jwtOptions!.SecretKey))
-					};
-
-					options.Events = new JwtBearerEvents()
-					{
-						OnMessageReceived = context =>
-						{
-							context.Token = context.Request.Cookies["tasty-cookies"];
-
-							return Task.CompletedTask;
-						}
 					};
 				});
 

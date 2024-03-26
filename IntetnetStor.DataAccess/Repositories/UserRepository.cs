@@ -16,14 +16,16 @@ namespace IntetnetStore.DataAccess.Repositories
 		}
 		public async Task Add(User user)
 		{
+			var role = _context.Roles.FirstOrDefault(x => x.Id == (int)Role.User);
 			var userEntity = new UserEntity()
 			{
 				Id = user.Id,
 				UserName = user.UserName,
 				PasswordHash = user.PasswordHash,
 				Email = user.Email,
+				Roles = { role },
 			};
-
+			
 			await _context.Users.AddAsync(userEntity);
 			await _context.SaveChangesAsync();
 		}

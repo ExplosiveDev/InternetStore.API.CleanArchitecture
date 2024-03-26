@@ -1,5 +1,6 @@
 ﻿using InternetStore.API.Contracts;
 using InternetStore.Application.Services;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InternetStore.API.Controllers
@@ -10,7 +11,6 @@ namespace InternetStore.API.Controllers
 	{
 		private readonly IUserService _userService;
 		private readonly IHttpContextAccessor _context;
-
 		public UsersController(IUserService userService, IHttpContextAccessor context)
 		{
 			_userService = userService;
@@ -28,9 +28,15 @@ namespace InternetStore.API.Controllers
 		[HttpPost("login")]
 		public async Task<ActionResult> Login([FromBody] LoginUserRequest request)
 		{
-			var token = await _userService.Login(request.Email, request.Password);
+			var cortage = await _userService.Login(request.Email, request.Password);
 
-			return Ok(token);
+			if(string.IsNullOrEmpty(cortage.token)) 
+			{
+				return BadRequest(new {message = "User name or password is incorrect "});
+			}
+
+			LoginUserRespons respons = new LoginUserRespons(cortage.user,cortage.token);
+			return Ok(respons);
 		}
 	}
 }
