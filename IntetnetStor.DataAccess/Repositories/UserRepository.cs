@@ -25,7 +25,7 @@ namespace IntetnetStore.DataAccess.Repositories
 				Email = user.Email,
 				Roles = { role },
 			};
-			
+
 			await _context.Users.AddAsync(userEntity);
 			await _context.SaveChangesAsync();
 		}
@@ -37,6 +37,14 @@ namespace IntetnetStore.DataAccess.Repositories
 				.FirstOrDefaultAsync(x => x.Email == email) ?? throw new Exception();
 
 			return User.Create(userEntity.Id, userEntity.UserName, userEntity.Email, userEntity.PasswordHash).User;
+		}
+		public async Task<bool> IsUniqueEmail(string email)
+		{
+			var user = await _context.Users
+				.AsNoTracking()
+				.FirstOrDefaultAsync(x => x.Email == email);
+			if (user == null) return false;
+			else return true;
 		}
 	}
 }

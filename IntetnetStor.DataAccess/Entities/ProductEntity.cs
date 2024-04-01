@@ -15,8 +15,11 @@ namespace InternetStore.DataAccess.Entities
 		public decimal Price { get; set; }
 		public string? ImagePath { get; set; }
 		public int Count { get; set; }
+
 		public CategoryEntity? Category { get; set; }
 		public Guid CategoryId { get; set; }
+		public BrandEntity? Brand { get; set; }
+		public Guid BrandId { get; set; }
 
 	}
 }

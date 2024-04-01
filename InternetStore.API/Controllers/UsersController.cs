@@ -31,9 +31,10 @@ namespace InternetStore.API.Controllers
 			var cortage = await _userService.Login(request.Email, request.Password);
 
 			if(string.IsNullOrEmpty(cortage.token)) 
-			{
 				return BadRequest(new {message = "User name or password is incorrect "});
-			}
+
+			if(!_userService.IsUniqueEmail(request.Email).Result)
+				return BadRequest(new { message = "this email is already use" });
 
 			LoginUserRespons respons = new LoginUserRespons(cortage.user,cortage.token);
 			return Ok(respons);

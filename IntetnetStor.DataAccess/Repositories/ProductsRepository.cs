@@ -21,7 +21,8 @@ namespace InternetStore.DataAccess.Repositories
 
 			var products = productEntities
 				.Select(p => Product.Create(p.Id, p.Name, p.Description, p.Price, p.ImagePath, p.Count, 
-					Category.Create(p.Category.Id, p.Category.Name).Category, p.Category.Id).Product)
+					Category.Create(p.Category.Id, p.Category.Name).Category, p.Category.Id, 
+					Brand.Create(p.Brand.Id,p.Brand.Name).Brand, p.Brand.Id).Product)
 				.ToList();
 
 			return products;
@@ -38,6 +39,7 @@ namespace InternetStore.DataAccess.Repositories
 				Count = product.Count,
 				Price = product.Price,
 				CategoryId = product.Category.Id,
+				BrandId = product.Brand.Id,
 			};
 			await _context.Products.AddAsync(producEntity);
 			await _context.SaveChangesAsync();
@@ -45,7 +47,7 @@ namespace InternetStore.DataAccess.Repositories
 			return producEntity.Id;
 		}
 
-		public async Task<Guid> Update(Guid id, string name, string description, decimal price, string imagePath, int count, Guid categoryId)
+		public async Task<Guid> Update(Guid id, string name, string description, decimal price, string imagePath, int count, Guid categoryId, Guid brandId)
 		{
 			await _context.Products
 			   .Where(x => x.Id == id)
@@ -55,7 +57,8 @@ namespace InternetStore.DataAccess.Repositories
 					.SetProperty(p => p.Price, p => price)
 					.SetProperty(p => p.ImagePath, p => imagePath)
 					.SetProperty(p => p.Count, p => count)
-					.SetProperty(p => p.CategoryId, p => categoryId));
+					.SetProperty(p => p.CategoryId, p => categoryId)
+					.SetProperty(p => p.BrandId, p => brandId));
 
 			return id;
 		}

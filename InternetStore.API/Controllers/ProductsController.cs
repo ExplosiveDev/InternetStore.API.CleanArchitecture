@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace InternetStore.API.Controllers
 {
-	[Authorize /*(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)*/]
 	[ApiController]
 	[Route("[controller]")]
 	public class ProductsController : ControllerBase
@@ -26,7 +25,8 @@ namespace InternetStore.API.Controllers
 			var products = await _productsService.GetAllProducts();
 
 			var response = products.Select(p => new ProductsResponse(p.Id, p.Name, p.Description, p.Price, p.ImagePath, p.Count,
-				Category.Create(p.Category.Id, p.Category.Name).Category, p.CategoryId));
+				Category.Create(p.Category.Id, p.Category.Name).Category, p.CategoryId,
+				Brand.Create(p.Brand.Id, p.Brand.Name).Brand, p.CategoryId));
 			return Ok(response);
 		}
 
@@ -36,16 +36,19 @@ namespace InternetStore.API.Controllers
 			var product = await _productsService.GetByIdProduct(id);
 
 			var response = new ProductsResponse(product.Id, product.Name, product.Description, product.Price, product.ImagePath, product.Count,
-				Category.Create(product.Category.Id, product.Category.Name).Category, product.CategoryId);
+				Category.Create(product.Category.Id, product.Category.Name).Category, product.CategoryId,
+				Brand.Create(product.Brand.Id, product.Brand.Name).Brand, product.CategoryId);
 
 			return Ok(response);
 		}
 
+		[Authorize]
 		[HttpPost]
 		public async Task<ActionResult<Guid>> CreateProducts([FromBody] ProductsRequest request)
 		{
 			var (product, error) = Product.Create(Guid.NewGuid(), request.Name, request.Description, request.Price, request.ImagePath, request.Count,
-				Category.Create(request.Category.Id, request.Category.Name).Category, request.CategoryId);
+				Category.Create(request.Category.Id, request.Category.Name).Category, request.CategoryId,
+				Brand.Create(request.Brand.Id, request.Brand.Name).Brand, request.CategoryId);
 
 			if (!string.IsNullOrEmpty(error))
 			{
@@ -57,14 +60,17 @@ namespace InternetStore.API.Controllers
 			return Ok(ProductId);
 		}
 
+		[Authorize]
 		[HttpPut("{id:guid}")]
 		public async Task<ActionResult<Guid>> UpdateProducts(Guid id, [FromBody] ProductsRequest request)
 		{
-			var ProductId = await _productsService.UpdateProduct(id, request.Name, request.Description, request.Price, request.ImagePath, request.Count, request.CategoryId);
+			var ProductId = await _productsService.UpdateProduct
+				(id, request.Name, request.Description, request.Price, request.ImagePath, request.Count, request.CategoryId,request.BrandId);
 
 			return Ok(ProductId);
 		}
 
+		[Authorize]
 		[HttpDelete("{id:guid}")]
 		public async Task<ActionResult<Guid>> DeleteProducts(Guid id)
 		{

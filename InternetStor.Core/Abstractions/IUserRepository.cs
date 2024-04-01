@@ -12,5 +12,6 @@ namespace InternetStore.Core.Abstractions
 	{
 		public Task Add(User user);
 		public Task<User> GetByEmail(string email);
+		public Task<bool> IsUniqueEmail(string email);
 	}
 }

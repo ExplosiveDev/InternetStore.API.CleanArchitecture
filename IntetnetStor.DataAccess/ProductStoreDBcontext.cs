@@ -17,6 +17,7 @@ namespace InternetStore.DataAccess
 		public DbSet<CategoryEntity> Categories { get; set; }
 		public DbSet<UserEntity> Users { get; set; }
 		public DbSet<RoleEntity> Roles { get; set; }
+		public DbSet<BrandEntity> Brands { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
@@ -24,6 +25,7 @@ namespace InternetStore.DataAccess
 
 			modelBuilder.Entity<CategoryEntity>().HasData(SeedData.GetCategory());
 			modelBuilder.Entity<ProductEntity>().HasData(SeedData.GetProduct());
+			modelBuilder.Entity<BrandEntity>().HasData(SeedData.GetBrand());
 		}
 	}
 }

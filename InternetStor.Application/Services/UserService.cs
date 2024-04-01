@@ -47,5 +47,9 @@ namespace InternetStore.Application.Services
 
 			return (User.Create(user.Id,user.UserName,user.Email,"password").User, token);
 		}
+		public async Task<bool> IsUniqueEmail(string email)
+		{
+			return await _userRepository.IsUniqueEmail(email);
+		}
 	}
 }

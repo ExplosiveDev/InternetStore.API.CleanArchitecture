@@ -10,5 +10,7 @@ namespace InternetStore.API.Contracts
 		string? ImagePath,
 		int Count,
 		Category Category,
-		Guid CategoryId);
+		Guid CategoryId,
+		Brand Brand,
+		Guid BrandId);
 }

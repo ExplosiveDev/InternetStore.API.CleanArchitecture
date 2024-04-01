@@ -25,12 +25,19 @@ namespace InternetStore.DataAccess.Configuration
 			builder.Property(x => x.Count)
 				.IsRequired();
 
-			builder.Property(x => x.CategoryId) 
+			builder.Property(x => x.CategoryId)
+				.IsRequired();
+
+			builder.Property(x => x.BrandId)
 				.IsRequired();
 
 			builder.HasOne(x => x.Category)
 				.WithMany(x => x.Products)
 				.HasForeignKey(x => x.CategoryId);
+
+			builder.HasOne(x => x.Brand)
+				.WithMany(x => x.Products)
+				.HasForeignKey(x => x.BrandId);
 		}
 	}
 }

@@ -22,9 +22,9 @@ namespace InternetStore.Application.Services
 		{
 			return await _productsRepository.Create(product);
 		}
-		public async Task<Guid> UpdateProduct(Guid id, string name, string description, decimal price, string imagePath, int count, Guid categoryId)
+		public async Task<Guid> UpdateProduct(Guid id, string name, string description, decimal price, string imagePath, int count, Guid categoryId, Guid brandId)
 		{
-			return await _productsRepository.Update(id, name, description, price, imagePath, count, categoryId);
+			return await _productsRepository.Update(id, name, description, price, imagePath, count, categoryId, brandId);
 		}
 		public async Task<Guid> DeleteProduct(Guid id)
 		{

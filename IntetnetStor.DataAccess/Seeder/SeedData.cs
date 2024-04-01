@@ -18,7 +18,8 @@ namespace IntetnetStore.DataAccess.Seeder
 					Price = 28999,
 					ImagePath = @"https://content2.rozetka.com.ua/goods/images/big/343096346.jpg",
 					Count = 1,
-					CategoryId = Guid.Parse("b61decb4-84d9-4057-b1e4-d7fb612d1d8f")
+					CategoryId = Guid.Parse("b61decb4-84d9-4057-b1e4-d7fb612d1d8f"),
+					BrandId = Guid.Parse("48be627a-fea0-477f-8682-f9b9725c387b")
 				},
 				new ProductEntity{
 					Id = Guid.NewGuid(),
@@ -27,7 +28,8 @@ namespace IntetnetStore.DataAccess.Seeder
 					Price = 16588,
 					ImagePath = @"https://content2.rozetka.com.ua/goods/images/big/347802389.jpg",
 					Count = 1,
-					CategoryId = Guid.Parse("b61decb4-84d9-4057-b1e4-d7fb612d1d8f")
+					CategoryId = Guid.Parse("b61decb4-84d9-4057-b1e4-d7fb612d1d8f"),
+					BrandId = Guid.Parse("0bc0af50-0c40-4912-a453-fae84802afe6")
 				},
 				new ProductEntity{
 					Id = Guid.NewGuid(),
@@ -36,7 +38,8 @@ namespace IntetnetStore.DataAccess.Seeder
 					Price = 19999,
 					ImagePath = @"https://content1.rozetka.com.ua/goods/images/big/334484472.jpg",
 					Count = 1,
-					CategoryId = Guid.Parse("b61decb4-84d9-4057-b1e4-d7fb612d1d8f")
+					CategoryId = Guid.Parse("b61decb4-84d9-4057-b1e4-d7fb612d1d8f"),
+					BrandId = Guid.Parse("46a417c5-5e5f-448c-9811-dd96cfeddf2c")
 				},
 				new ProductEntity{
 					Id = Guid.NewGuid(),
@@ -45,7 +48,8 @@ namespace IntetnetStore.DataAccess.Seeder
 					Price = 52299,
 					ImagePath = @"https://content.rozetka.com.ua/goods/images/big/364834229.jpg",
 					Count = 1,
-					CategoryId = Guid.Parse("7d7dde3b-1176-47fa-86d4-be71afd4ffce")
+					CategoryId = Guid.Parse("7d7dde3b-1176-47fa-86d4-be71afd4ffce"),
+					BrandId = Guid.Parse("bf383338-5fab-4845-a5bb-79c7288b4739")
 				},
 			};
 			return ListProducts;
@@ -61,6 +65,18 @@ namespace IntetnetStore.DataAccess.Seeder
 			};
 
 			return ListCategories;
+		}
+		public static List<BrandEntity> GetBrand()
+		{
+			List<BrandEntity> ListBrands = new List<BrandEntity>()
+			{
+				new BrandEntity{ Id = Guid.Parse("0bc0af50-0c40-4912-a453-fae84802afe6") , Name = "Asus" },
+				new BrandEntity{ Id = Guid.Parse("48be627a-fea0-477f-8682-f9b9725c387b") , Name = "Acer" },
+				new BrandEntity{ Id = Guid.Parse("46a417c5-5e5f-448c-9811-dd96cfeddf2c") , Name = "Lenovo" },
+				new BrandEntity{ Id = Guid.Parse("bf383338-5fab-4845-a5bb-79c7288b4739") , Name = "Apple" },
+			};
+
+			return ListBrands;
 		}
 	}
 }
