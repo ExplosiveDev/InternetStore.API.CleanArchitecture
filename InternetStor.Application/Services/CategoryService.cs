@@ -18,7 +18,7 @@ namespace InternetStore.Application.Services
 			_categoryRepository = categoryRepository;
 		}
 
-		public async Task<List<Category>> GetAllProducts()
+		public async Task<List<Category>> GetAllCategories()
 		{
 			return await _categoryRepository.Get();
 		}

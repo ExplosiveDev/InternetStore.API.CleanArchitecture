@@ -9,6 +9,6 @@ namespace InternetStore.Core.Abstractions
 {
 	public interface ICategoryService
 	{
-		Task<List<Category>> GetAllProducts();
+		Task<List<Category>> GetAllCategories();
 	}
 }

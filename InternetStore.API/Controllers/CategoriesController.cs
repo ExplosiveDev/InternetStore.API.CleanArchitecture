@@ -10,17 +10,17 @@ namespace InternetStore.API.Controllers
 	[Route("[controller]")]
 	public class CategoriesController : ControllerBase
 	{
-		private readonly ICategoryService _categoryRepository;
+		private readonly ICategoryService _categoryService;
 
-		public CategoriesController(ICategoryService categoryRepository)
+		public CategoriesController(ICategoryService categoryService)
 		{
-			_categoryRepository = categoryRepository;
+			_categoryService = categoryService;
 		}
 
 		[HttpGet]
 		public async Task<ActionResult<List<CategoryRespons>>> GetCategories()
 		{
-			var categories = await _categoryRepository.GetAllProducts();
+			var categories = await _categoryService.GetAllCategories();
 
 			var response = categories.Select(p => new CategoryRespons(p.Id, p.Name));
 			return Ok(response);

@@ -51,6 +51,16 @@ namespace IntetnetStore.DataAccess.Seeder
 					CategoryId = Guid.Parse("7d7dde3b-1176-47fa-86d4-be71afd4ffce"),
 					BrandId = Guid.Parse("bf383338-5fab-4845-a5bb-79c7288b4739")
 				},
+				new ProductEntity{
+					Id = Guid.NewGuid(),
+					Name = "Iphone 12 Pro Max",
+					Description = "Екран (6.4, OLED (Super Retina XDR), 2796x1290) / Apple A14 Pro / основна потрійна камера: 36 Мп + 12 Мп + 12 Мп, фронтальна камера: 12 Мп / 128 ГБ вбудованої пам'яті / 3G / LTE / 5G / GPS / Nano-SIM / iOS 16",
+					Price = 26999,
+					ImagePath = @"https://content.rozetka.com.ua/goods/images/big/30872889.jpg",
+					Count = 1,
+					CategoryId = Guid.Parse("7d7dde3b-1176-47fa-86d4-be71afd4ffce"),
+					BrandId = Guid.Parse("bf383338-5fab-4845-a5bb-79c7288b4739")
+				},
 			};
 			return ListProducts;
 		}
@@ -61,7 +71,6 @@ namespace IntetnetStore.DataAccess.Seeder
 			{
 				new CategoryEntity{ Id = Guid.Parse("b61decb4-84d9-4057-b1e4-d7fb612d1d8f") , Name = "Laptop" },
 				new CategoryEntity{ Id = Guid.Parse("7d7dde3b-1176-47fa-86d4-be71afd4ffce") , Name = "Smartphone" },
-				new CategoryEntity{ Id = Guid.Parse("549343a6-85ce-448d-bd68-dd5c0c5ade0b") , Name = "Electronice" },
 			};
 
 			return ListCategories;

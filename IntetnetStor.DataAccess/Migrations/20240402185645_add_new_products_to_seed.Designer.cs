@@ -4,6 +4,7 @@ using InternetStore.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IntetnetStore.DataAccess.Migrations
 {
     [DbContext(typeof(ProductStoreDBcontext))]
-    partial class ProductStoreDBcontextModelSnapshot : ModelSnapshot
+    [Migration("20240402185645_add_new_products_to_seed")]
+    partial class add_new_products_to_seed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -64,7 +67,7 @@ namespace IntetnetStore.DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("bcb9be5b-0dbf-4901-a689-300c8c5c5a2c"),
+                            Id = new Guid("e1ff7212-56bb-4b89-bdee-6a67a3d8b632"),
                             BrandId = new Guid("48be627a-fea0-477f-8682-f9b9725c387b"),
                             CategoryId = new Guid("b61decb4-84d9-4057-b1e4-d7fb612d1d8f"),
                             Count = 1,
@@ -75,7 +78,7 @@ namespace IntetnetStore.DataAccess.Migrations
                         },
                         new
                         {
-                            Id = new Guid("1bffd607-2df3-4d25-9478-e8d281354d90"),
+                            Id = new Guid("4da21f5b-7869-4269-8fb4-949b4cc907ac"),
                             BrandId = new Guid("0bc0af50-0c40-4912-a453-fae84802afe6"),
                             CategoryId = new Guid("b61decb4-84d9-4057-b1e4-d7fb612d1d8f"),
                             Count = 1,
@@ -86,7 +89,7 @@ namespace IntetnetStore.DataAccess.Migrations
                         },
                         new
                         {
-                            Id = new Guid("f6dbefe3-942e-4a3a-bdbd-69683a26ed47"),
+                            Id = new Guid("34a59553-e72d-43c1-a0ac-d6dba5326092"),
                             BrandId = new Guid("46a417c5-5e5f-448c-9811-dd96cfeddf2c"),
                             CategoryId = new Guid("b61decb4-84d9-4057-b1e4-d7fb612d1d8f"),
                             Count = 1,
@@ -97,7 +100,7 @@ namespace IntetnetStore.DataAccess.Migrations
                         },
                         new
                         {
-                            Id = new Guid("a211b008-be61-41a5-85f0-aa5a58a25945"),
+                            Id = new Guid("f4dab427-cf88-46c5-bde6-64478616dbbc"),
                             BrandId = new Guid("bf383338-5fab-4845-a5bb-79c7288b4739"),
                             CategoryId = new Guid("7d7dde3b-1176-47fa-86d4-be71afd4ffce"),
                             Count = 1,
@@ -108,7 +111,7 @@ namespace IntetnetStore.DataAccess.Migrations
                         },
                         new
                         {
-                            Id = new Guid("310fa4c3-fead-43bf-b3f4-477b6e68749a"),
+                            Id = new Guid("0254b4b9-9d1b-4167-8f7e-bb7c6c1bdd6a"),
                             BrandId = new Guid("bf383338-5fab-4845-a5bb-79c7288b4739"),
                             CategoryId = new Guid("7d7dde3b-1176-47fa-86d4-be71afd4ffce"),
                             Count = 1,
@@ -182,6 +185,11 @@ namespace IntetnetStore.DataAccess.Migrations
                         {
                             Id = new Guid("7d7dde3b-1176-47fa-86d4-be71afd4ffce"),
                             Name = "Smartphone"
+                        },
+                        new
+                        {
+                            Id = new Guid("549343a6-85ce-448d-bd68-dd5c0c5ade0b"),
+                            Name = "Electronice"
                         });
                 });
 

@@ -31,6 +31,9 @@ builder.Services.AddScoped<IProductsService, ProductsService>();
 //Category service
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 
+//Brand service
+builder.Services.AddScoped<IBrandService, BrandService>();
+
 //User service
 builder.Services.AddScoped<IUserService, UserService>();
 

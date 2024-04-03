@@ -16,6 +16,7 @@ namespace InternetStore.DataAccess.Repositories
 		{
 			var productEntities = await _context.Products
 				.Include(x => x.Category)
+				.Include(x => x.Brand)
 				.AsNoTracking()
 				.ToListAsync();
 
