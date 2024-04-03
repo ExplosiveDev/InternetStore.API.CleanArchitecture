@@ -1,4 +1,5 @@
-﻿using Azure.Core;
+﻿using AutoMapper;
+using Azure.Core;
 using InternetStore.API.Contracts;
 using InternetStore.Application.Services;
 using InternetStore.Core.Models;
@@ -13,10 +14,13 @@ namespace InternetStore.API.Controllers
 	public class ProductsController : ControllerBase
 	{
 		private readonly IProductsService _productsService;
+		private readonly IMapper _mapper;
 
-		public ProductsController(IProductsService productsService)
+
+		public ProductsController(IProductsService productsService, IMapper mapper)
 		{
 			_productsService = productsService;
+			_mapper = mapper;
 		}
 
 		[HttpGet]
@@ -24,10 +28,7 @@ namespace InternetStore.API.Controllers
 		{
 			var products = await _productsService.GetAllProducts();
 
-			var response = products.Select(p => new ProductsResponse(p.Id, p.Name, p.Description, p.Price, p.ImagePath, p.Count,
-				Category.Create(p.Category.Id, p.Category.Name).Category, p.CategoryId,
-				Brand.Create(p.Brand.Id, p.Brand.Name).Brand, p.CategoryId));
-			return Ok(response);
+			return Ok(_mapper.Map<List<ProductsResponse>>(products));
 		}
 
 		[HttpGet("{id:guid}")]
@@ -35,11 +36,7 @@ namespace InternetStore.API.Controllers
 		{
 			var product = await _productsService.GetByIdProduct(id);
 
-			var response = new ProductsResponse(product.Id, product.Name, product.Description, product.Price, product.ImagePath, product.Count,
-				Category.Create(product.Category.Id, product.Category.Name).Category, product.CategoryId,
-				Brand.Create(product.Brand.Id, product.Brand.Name).Brand, product.CategoryId);
-
-			return Ok(response);
+			return Ok(_mapper.Map<ProductsResponse>(product));
 		}
 
 		[Authorize]

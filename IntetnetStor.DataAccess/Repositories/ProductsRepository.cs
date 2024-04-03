@@ -1,4 +1,5 @@
-﻿using InternetStore.Core.Models;
+﻿using AutoMapper;
+using InternetStore.Core.Models;
 using InternetStore.DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,9 +8,11 @@ namespace InternetStore.DataAccess.Repositories
 	public class ProductsRepository : IProductsRepository
 	{
 		private readonly ProductStoreDBcontext _context;
-		public ProductsRepository(ProductStoreDBcontext context)
+		private readonly IMapper _mapper;
+		public ProductsRepository(ProductStoreDBcontext context, IMapper mapper)
 		{
 			_context = context;
+			_mapper = mapper;
 		}
 
 		public async Task<List<Product>> Get()
@@ -20,13 +23,9 @@ namespace InternetStore.DataAccess.Repositories
 				.AsNoTracking()
 				.ToListAsync();
 
-			var products = productEntities
-				.Select(p => Product.Create(p.Id, p.Name, p.Description, p.Price, p.ImagePath, p.Count, 
-					Category.Create(p.Category.Id, p.Category.Name).Category, p.Category.Id, 
-					Brand.Create(p.Brand.Id,p.Brand.Name).Brand, p.Brand.Id).Product)
-				.ToList();
+			
 
-			return products;
+			return _mapper.Map<List<Product>>(productEntities);
 		}
 
 		public async Task<Guid> Create(Product product)

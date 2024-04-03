@@ -1,9 +1,11 @@
 using InternetStore.API.Extensions;
+using InternetStore.API.Mapper;
 using InternetStore.API.Middleware;
 using InternetStore.Application.Services;
 using InternetStore.Core.Abstractions;
 using InternetStore.Infrastructure;
 using IntetnetStore.DataAccess;
+using IntetnetStore.DataAccess.Mapping;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.CookiePolicy;
 using Serilog;
@@ -46,6 +48,10 @@ builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 
 //Data Access
 builder.Services.AddDataAccess(builder.Configuration);
+
+//Mappers
+builder.Services.AddAutoMapper(typeof(DataBaseMapping));
+builder.Services.AddAutoMapper(typeof(ContractsMapping));
 
 var app = builder.Build();
 
