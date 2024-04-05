@@ -39,6 +39,9 @@ builder.Services.AddScoped<IBrandService, BrandService>();
 //User service
 builder.Services.AddScoped<IUserService, UserService>();
 
+//Basket service
+builder.Services.AddScoped<IBasketService, BasketService>();
+
 //Jwt provider
 builder.Services.AddScoped<IJwtProvider, JwtProvider>();
 

@@ -42,8 +42,8 @@ namespace InternetStore.Core.Models
 
 		public Category Category { get; }
 		public Guid CategoryId { get; }
-		public Brand? Brand { get; set; }
-		public Guid BrandId { get; set; }
+		public Brand? Brand { get; }
+		public Guid BrandId { get; }
 
 		public static (Product Product, string Error ) 
 			Create(Guid id, string name, string description, decimal price, string imagePath, int count, Category? category, Guid categoryId, Brand? brand, Guid brandId)

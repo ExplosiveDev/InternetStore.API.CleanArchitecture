@@ -36,7 +36,19 @@ namespace IntetnetStore.DataAccess.Repositories
 				.AsNoTracking()
 				.FirstOrDefaultAsync(x => x.Email == email) ?? throw new Exception();
 
-			return User.Create(userEntity.Id, userEntity.UserName, userEntity.Email, userEntity.PasswordHash).User;
+			if(userEntity != null)
+				return User.Create(userEntity.Id, userEntity.UserName, userEntity.Email, userEntity.PasswordHash).User;
+			return null;
+		}
+		public async Task<User> GetById(Guid userId)
+		{
+			var userEntity = await _context.Users
+				.AsNoTracking()
+				.FirstOrDefaultAsync(x => x.Id == userId) ?? throw new Exception();
+
+			if (userEntity != null)
+				return User.Create(userEntity.Id, userEntity.UserName, userEntity.Email, userEntity.PasswordHash).User;
+			return null;
 		}
 		public async Task<bool> IsUniqueEmail(string email)
 		{

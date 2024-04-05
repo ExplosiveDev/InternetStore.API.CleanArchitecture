@@ -4,6 +4,7 @@ using InternetStore.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IntetnetStore.DataAccess.Migrations
 {
     [DbContext(typeof(ProductStoreDBcontext))]
-    partial class ProductStoreDBcontextModelSnapshot : ModelSnapshot
+    [Migration("20240405160709_add_some_configurations_to_Basket_and_Products")]
+    partial class add_some_configurations_to_Basket_and_Products
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -64,7 +67,7 @@ namespace IntetnetStore.DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("d4d2e29d-59d3-45fd-b1df-846233b71a8b"),
+                            Id = new Guid("4bc380c3-781e-482e-a1db-f02a9730facb"),
                             BrandId = new Guid("48be627a-fea0-477f-8682-f9b9725c387b"),
                             CategoryId = new Guid("b61decb4-84d9-4057-b1e4-d7fb612d1d8f"),
                             Count = 1,
@@ -75,7 +78,7 @@ namespace IntetnetStore.DataAccess.Migrations
                         },
                         new
                         {
-                            Id = new Guid("526ae88f-d6c0-41ae-92c1-0e3134159f71"),
+                            Id = new Guid("634c2390-0ff4-49b9-97ad-19be6030e553"),
                             BrandId = new Guid("0bc0af50-0c40-4912-a453-fae84802afe6"),
                             CategoryId = new Guid("b61decb4-84d9-4057-b1e4-d7fb612d1d8f"),
                             Count = 1,
@@ -86,7 +89,7 @@ namespace IntetnetStore.DataAccess.Migrations
                         },
                         new
                         {
-                            Id = new Guid("72376897-20fe-46d6-93ae-1aea9e1d2275"),
+                            Id = new Guid("340cc185-8d5a-4f86-b14e-c1f101c3f950"),
                             BrandId = new Guid("46a417c5-5e5f-448c-9811-dd96cfeddf2c"),
                             CategoryId = new Guid("b61decb4-84d9-4057-b1e4-d7fb612d1d8f"),
                             Count = 1,
@@ -97,7 +100,7 @@ namespace IntetnetStore.DataAccess.Migrations
                         },
                         new
                         {
-                            Id = new Guid("ef96cb8c-c259-46f6-9873-a7869f428f00"),
+                            Id = new Guid("499ef741-f0ec-4636-80cc-dbbf0034896a"),
                             BrandId = new Guid("bf383338-5fab-4845-a5bb-79c7288b4739"),
                             CategoryId = new Guid("7d7dde3b-1176-47fa-86d4-be71afd4ffce"),
                             Count = 1,
@@ -108,7 +111,7 @@ namespace IntetnetStore.DataAccess.Migrations
                         },
                         new
                         {
-                            Id = new Guid("285e229e-77ed-4e7c-8ca0-b03c96704d5b"),
+                            Id = new Guid("89faff28-5a49-49c5-9098-3f69e29f8e8f"),
                             BrandId = new Guid("bf383338-5fab-4845-a5bb-79c7288b4739"),
                             CategoryId = new Guid("7d7dde3b-1176-47fa-86d4-be71afd4ffce"),
                             Count = 1,

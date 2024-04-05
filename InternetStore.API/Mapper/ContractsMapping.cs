@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using InternetStore.API.Contracts;
 using InternetStore.Core.Models;
+using InternetStore.DataAccess.Entities;
+using IntetnetStore.DataAccess.Entities;
 
 namespace InternetStore.API.Mapper
 {
@@ -10,6 +12,7 @@ namespace InternetStore.API.Mapper
         {
             CreateMap<Product, ProductsResponse>();
             CreateMap<ProductsRequest, Product>();
-        }
+
+		}
     }
 }

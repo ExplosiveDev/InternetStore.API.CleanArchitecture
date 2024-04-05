@@ -29,6 +29,7 @@ namespace IntetnetStore.DataAccess
 			services.AddScoped<ICategoryRepository, CategoryRepository>();
 			services.AddScoped<IUserRepository, UserRepository>();
 			services.AddScoped<IBrandRepository, BrandRepository>();
+			services.AddScoped<IBasketRepository, BasketRepository>();
 
 			return services;
 		}

@@ -18,9 +18,8 @@ namespace InternetStore.DataAccess.Repositories
 		public async Task<List<Product>> Get()
 		{
 			var productEntities = await _context.Products
-				.Include(x => x.Category)
-				.Include(x => x.Brand)
-				.AsNoTracking()
+				.Include(x => x.Category).AsNoTracking()
+				.Include(x => x.Brand).AsNoTracking()
 				.ToListAsync();
 
 			

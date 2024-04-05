@@ -4,6 +4,7 @@ using InternetStore.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IntetnetStore.DataAccess.Migrations
 {
     [DbContext(typeof(ProductStoreDBcontext))]
-    partial class ProductStoreDBcontextModelSnapshot : ModelSnapshot
+    [Migration("20240405154407_add_Basket_ProductInBusket")]
+    partial class add_Basket_ProductInBusket
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -64,7 +67,7 @@ namespace IntetnetStore.DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("d4d2e29d-59d3-45fd-b1df-846233b71a8b"),
+                            Id = new Guid("8b882dc4-265b-44de-83b4-2f3e2db2b393"),
                             BrandId = new Guid("48be627a-fea0-477f-8682-f9b9725c387b"),
                             CategoryId = new Guid("b61decb4-84d9-4057-b1e4-d7fb612d1d8f"),
                             Count = 1,
@@ -75,7 +78,7 @@ namespace IntetnetStore.DataAccess.Migrations
                         },
                         new
                         {
-                            Id = new Guid("526ae88f-d6c0-41ae-92c1-0e3134159f71"),
+                            Id = new Guid("05f0b981-d8e2-4690-878c-f947a6784b8f"),
                             BrandId = new Guid("0bc0af50-0c40-4912-a453-fae84802afe6"),
                             CategoryId = new Guid("b61decb4-84d9-4057-b1e4-d7fb612d1d8f"),
                             Count = 1,
@@ -86,7 +89,7 @@ namespace IntetnetStore.DataAccess.Migrations
                         },
                         new
                         {
-                            Id = new Guid("72376897-20fe-46d6-93ae-1aea9e1d2275"),
+                            Id = new Guid("b87ea50a-4a20-4784-8e82-5ef132b15971"),
                             BrandId = new Guid("46a417c5-5e5f-448c-9811-dd96cfeddf2c"),
                             CategoryId = new Guid("b61decb4-84d9-4057-b1e4-d7fb612d1d8f"),
                             Count = 1,
@@ -97,7 +100,7 @@ namespace IntetnetStore.DataAccess.Migrations
                         },
                         new
                         {
-                            Id = new Guid("ef96cb8c-c259-46f6-9873-a7869f428f00"),
+                            Id = new Guid("3e33fccf-59ac-4e51-a9db-72bd6255f889"),
                             BrandId = new Guid("bf383338-5fab-4845-a5bb-79c7288b4739"),
                             CategoryId = new Guid("7d7dde3b-1176-47fa-86d4-be71afd4ffce"),
                             Count = 1,
@@ -108,7 +111,7 @@ namespace IntetnetStore.DataAccess.Migrations
                         },
                         new
                         {
-                            Id = new Guid("285e229e-77ed-4e7c-8ca0-b03c96704d5b"),
+                            Id = new Guid("488ccd6a-c585-40de-bde9-4faf8f8a13ea"),
                             BrandId = new Guid("bf383338-5fab-4845-a5bb-79c7288b4739"),
                             CategoryId = new Guid("7d7dde3b-1176-47fa-86d4-be71afd4ffce"),
                             Count = 1,
@@ -130,7 +133,7 @@ namespace IntetnetStore.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Baskets");
+                    b.ToTable("BasketEntity");
                 });
 
             modelBuilder.Entity("IntetnetStore.DataAccess.Entities.BrandEntity", b =>
@@ -220,7 +223,7 @@ namespace IntetnetStore.DataAccess.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductInBaskets");
+                    b.ToTable("ProductInBasketEntity");
                 });
 
             modelBuilder.Entity("IntetnetStore.DataAccess.Entities.RoleEntity", b =>

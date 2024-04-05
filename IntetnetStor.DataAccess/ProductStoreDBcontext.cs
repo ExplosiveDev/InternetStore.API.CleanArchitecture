@@ -5,6 +5,7 @@ using IntetnetStore.DataAccess.Entities;
 using Microsoft.Extensions.Options;
 using IntetnetStore.DataAccess;
 using IntetnetStore.DataAccess.Configuration;
+using InternetStore.Core.Models;
 
 namespace InternetStore.DataAccess
 {
@@ -18,6 +19,8 @@ namespace InternetStore.DataAccess
 		public DbSet<UserEntity> Users { get; set; }
 		public DbSet<RoleEntity> Roles { get; set; }
 		public DbSet<BrandEntity> Brands { get; set; }
+		public DbSet<BasketEntity> Baskets { get; set; }
+		public DbSet<ProductInBasketEntity> ProductInBaskets { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{

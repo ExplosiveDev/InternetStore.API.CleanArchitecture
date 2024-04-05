@@ -14,9 +14,13 @@ namespace IntetnetStore.DataAccess.Mapping
 	{
         public DataBaseMapping()
         {
-            CreateMap<ProductEntity, Product>();
-			CreateMap<CategoryEntity, Category>();
-			CreateMap<BrandEntity, Brand>();
+            CreateMap<ProductEntity, Product>().ReverseMap();
+			CreateMap<CategoryEntity, Category>().ReverseMap();
+			CreateMap<BrandEntity, Brand>().ReverseMap();
+
+			CreateMap<ProductInBasketEntity, ProductInBasket>().ReverseMap();
+			CreateMap<BasketEntity, Basket>().ReverseMap();
+
 		}
     }
 }
