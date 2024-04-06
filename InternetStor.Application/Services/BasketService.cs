@@ -36,7 +36,6 @@ namespace InternetStore.Application.Services
 				{
 					ProductInBasketEntity productInBasket = new ProductInBasketEntity()
 					{
-						Product = _mapper.Map<ProductEntity>(product),
 						ProductId = product.Id,
 						BasketId = basket.Id,
 						Count = 1
