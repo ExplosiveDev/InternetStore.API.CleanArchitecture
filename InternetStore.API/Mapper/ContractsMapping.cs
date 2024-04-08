@@ -10,8 +10,8 @@ namespace InternetStore.API.Mapper
 	{
         public ContractsMapping()
         {
-            CreateMap<Product, ProductsResponse>();
-            CreateMap<ProductsRequest, Product>();
+            CreateMap<Product, ProductsResponse>().ReverseMap();
+            CreateMap<ProductsRequest, Product>().ReverseMap();
 
 		}
     }

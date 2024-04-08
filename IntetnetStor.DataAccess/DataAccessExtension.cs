@@ -25,6 +25,7 @@ namespace IntetnetStore.DataAccess
 				options.UseSqlServer(configuration.GetConnectionString(nameof(ProductStoreDBcontext)));
 			});
 
+			services.AddTransient<ProductStoreDBcontext>();
 			services.AddScoped<IProductsRepository, ProductsRepository>();
 			services.AddScoped<ICategoryRepository, CategoryRepository>();
 			services.AddScoped<IUserRepository, UserRepository>();

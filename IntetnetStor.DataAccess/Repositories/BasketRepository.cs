@@ -43,7 +43,7 @@ namespace IntetnetStore.DataAccess.Repositories
 
 		public async Task Create(Guid userId)
 		{
-			var user = _context.Users.FirstOrDefault(x => x.Id == userId);
+			var user = _context.Users.AsNoTracking().FirstOrDefault(x => x.Id == userId);
 			if (user != null)
 			{
 				var newBasket = new BasketEntity()

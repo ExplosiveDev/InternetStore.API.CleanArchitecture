@@ -4,6 +4,7 @@ using InternetStore.Application.Services;
 using InternetStore.Core.Models;
 using InternetStore.DataAccess.Entities;
 using IntetnetStore.DataAccess.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InternetStore.API.Controllers
@@ -31,9 +32,9 @@ namespace InternetStore.API.Controllers
 			return Ok(basket);
 		}
 		[HttpPost("{userId:guid}")]
-		public async Task<ActionResult> AddProductToBasket([FromBody] Guid productId, Guid userId)
+		public async Task<ActionResult> AddProductToBasket([FromBody] ProductInBasketRequest request, Guid userId)
 		{
-			var prodEntity = await _productsService.GetByIdProduct(productId);
+			var prodEntity = await _productsService.GetByIdProduct(request.id);
 			var prod = Product.Create(prodEntity.Id, prodEntity.Name, prodEntity.Description, prodEntity.Price, prodEntity.ImagePath, prodEntity.Count, prodEntity.Category, prodEntity.CategoryId, prodEntity.Brand, prodEntity.BrandId).Product;
 			await _basketService.AddToBasket(prod, userId);
 			return Ok();
