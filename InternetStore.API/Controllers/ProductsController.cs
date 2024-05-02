@@ -16,7 +16,6 @@ namespace InternetStore.API.Controllers
 		private readonly IProductsService _productsService;
 		private readonly IMapper _mapper;
 
-
 		public ProductsController(IProductsService productsService, IMapper mapper)
 		{
 			_productsService = productsService;

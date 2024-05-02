@@ -6,11 +6,14 @@ using InternetStore.DataAccess.Entities;
 using IntetnetStore.DataAccess.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace InternetStore.API.Controllers
 {
+	[Authorize]
 	[ApiController]
 	[Route("[controller]")]
+
 	public class BasketsController : ControllerBase
 	{
 		private readonly IBasketService _basketService;
@@ -31,13 +34,54 @@ namespace InternetStore.API.Controllers
 
 			return Ok(basket);
 		}
-		[HttpPost("{userId:guid}")]
-		public async Task<ActionResult> AddProductToBasket([FromBody] ProductInBasketRequest request, Guid userId)
+
+		[HttpPost("AddProduct/{userId:guid}")]
+		public async Task<ActionResult<ProductInBasketResponse>> AddProductToBasket([FromBody] AddProductInBasketRequest request, Guid userId)
 		{
 			var prodEntity = await _productsService.GetByIdProduct(request.id);
-			var prod = Product.Create(prodEntity.Id, prodEntity.Name, prodEntity.Description, prodEntity.Price, prodEntity.ImagePath, prodEntity.Count, prodEntity.Category, prodEntity.CategoryId, prodEntity.Brand, prodEntity.BrandId).Product;
-			await _basketService.AddToBasket(prod, userId);
+			if(prodEntity == null)
+			{
+				return NotFound(new {message = "Product not found"});
+			}
+
+			try
+			{
+				var prod = Product.Create(prodEntity.Id, prodEntity.Name, prodEntity.Description, prodEntity.Price, prodEntity.ImagePath, prodEntity.Count, prodEntity.Category, prodEntity.CategoryId, prodEntity.Brand, prodEntity.BrandId).Product;
+				var id = await _basketService.AddToBasket(prod, userId);
+				return Ok(new ProductInBasketResponse(id, prod, 1));
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, new { message = "An error occurred while adding product to cart", error = ex.Message });
+			}
+		}
+
+		[HttpDelete("Delete/{userId:guid}")]
+		public async Task<ActionResult> DeleteProductFromBasket([FromBody] DeleteProductFromBasket request, Guid userId)
+		{
+			await _basketService.DeleteProdutFromBasker(request.productInBasketId, userId);
+			return Ok();
+
+		}
+		[HttpPost("ConfirmBasket/{userId:guid}")]
+		public async Task<ActionResult> ConfirmBasket([FromBody] ConfirmBasketRequest request, Guid userId)
+		{
+			var products = new (Guid, int)[request.data.Length];
+			int index = 0;
+			foreach (var data in request.data)
+			{
+				products[index] = (data.productInBasketId, data.count);
+				index++;
+			}
+			await _basketService.ConfirmBasket(userId, products);
 			return Ok();
 		}
+		//BadRequest();
+		//[HttpPut("{userId:guid}")]
+		//public async Task<ActionResult> UpdateProductInBasket([FromBody] UpdateProductInBasketRequest request, Guid userId)
+		//{
+		//	var b = request;
+		//	return Ok();
+		//}
 	}
 }

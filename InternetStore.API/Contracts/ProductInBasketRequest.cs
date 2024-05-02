@@ -1,5 +1,6 @@
 ﻿namespace InternetStore.API.Contracts
 {
 	public record ProductInBasketRequest(
-	Guid id);
+		Guid id,
+		int count);
 }

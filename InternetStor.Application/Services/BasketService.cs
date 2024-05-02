@@ -26,7 +26,7 @@ namespace InternetStore.Application.Services
 			_basketRepository = basketRepository;
 			_mapper = mapper;
 		}
-		public async Task AddToBasket(Product product, Guid userId)
+		public async Task<Guid> AddToBasket(Product product, Guid userId)
 		{
 			var user = _userRepository.GetById(userId);
 			if (user != null)
@@ -41,8 +41,35 @@ namespace InternetStore.Application.Services
 						Count = 1
 					};
 					await _basketRepository.Update(_mapper.Map<ProductInBasket>(productInBasket), userId);
+					return await GetProductInBasketId(userId,product.Id);
 				}
 			}
+			return Guid.Empty;
+		}
+		public async Task DeleteProdutFromBasker(Guid productInBasketId, Guid userId)
+		{
+			var user = _userRepository.GetById(userId);
+			if (user != null)
+			{
+				var basket = await _basketRepository.Get(userId);
+				if (basket.Products.Any(x => x.Id == productInBasketId))
+				{
+					await _basketRepository.Delete(productInBasketId, userId);
+				}
+			}
+		}
+		public async Task ConfirmBasket(Guid userId, (Guid productId, int count)[] products)
+		{
+			var user = _userRepository.GetById(userId);
+			if (user != null)
+			{
+				await _basketRepository.ConfirmBasket(userId, products);
+			}
+		}
+		public async Task<Guid> GetProductInBasketId(Guid userId, Guid productId)
+		{
+			var basket = await GetBasket(userId);
+			return basket.Products.FirstOrDefault(x => x.ProductId == productId)!.Id;
 		}
 		public async Task<Basket> GetBasket(Guid userId)
 		{

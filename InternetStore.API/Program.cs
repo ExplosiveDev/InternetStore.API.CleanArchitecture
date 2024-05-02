@@ -76,8 +76,6 @@ app.UseSerilogRequestLogging();
 
 app.MapControllers();
 
-
-
 app.UseCookiePolicy(new CookiePolicyOptions
 {
 	MinimumSameSitePolicy = SameSiteMode.Strict,

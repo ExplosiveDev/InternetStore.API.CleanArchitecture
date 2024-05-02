@@ -11,5 +11,6 @@ namespace IntetnetStore.DataAccess.Entities
         public Guid Id { get; set; }
 		public Guid UserId { get; set; }
 		public ICollection<ProductInBasketEntity> Products { get; set; } = [];
+		public double TotalPrice {  get; set; } 
 	}
 }

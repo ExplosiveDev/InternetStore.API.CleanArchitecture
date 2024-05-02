@@ -4,6 +4,7 @@ using InternetStore.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IntetnetStore.DataAccess.Migrations
 {
     [DbContext(typeof(ProductStoreDBcontext))]
-    partial class ProductStoreDBcontextModelSnapshot : ModelSnapshot
+    [Migration("20240422134326_add_total_price_to_Basket")]
+    partial class add_total_price_to_Basket
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -34,11 +34,43 @@ namespace IntetnetStore.DataAccess.Repositories
 					.ToListAsync();
 
 				BasketEntity.Products = productInBasketEntities;
+
+				return _mapper.Map<Basket>(BasketEntity);
+			}
+
+			await Create(userId);
+
+			BasketEntity = _context.Baskets.AsNoTracking().FirstOrDefault(x => x.UserId == userId);
+
+			if (BasketEntity == null)
+			{
+				throw new Exception("Failed to create basket."); 
+			}
+
+			return await Get(userId);  
+
+		}
+
+		private async Task<BasketEntity> GetWithTracking(Guid userId)
+		{
+			var BasketEntity = _context.Baskets.FirstOrDefault(x => x.UserId == userId);
+			if (BasketEntity != null)
+			{
+				var productInBasketEntities = await _context.ProductInBaskets
+					.Include(x => x.Product)
+					.Include(x => x.Product.Category)
+					.Include(x => x.Product.Brand)
+					.ToListAsync();
+
+				BasketEntity.Products = productInBasketEntities;
 			}
 			else
+			{
 				await Create(userId);
+				Get(userId);
+			}
 
-			return _mapper.Map<Basket>(BasketEntity);
+			return BasketEntity;
 		}
 
 		public async Task Create(Guid userId)
@@ -53,7 +85,6 @@ namespace IntetnetStore.DataAccess.Repositories
 				};
 				_context.Baskets.Add(newBasket);
 				await _context.SaveChangesAsync();
-				await Get(userId);
 			}
 		}
 		public async Task Update(ProductInBasket product, Guid userId)
@@ -62,6 +93,25 @@ namespace IntetnetStore.DataAccess.Repositories
 			basketEntity!.Products.Add(_mapper.Map<ProductInBasketEntity>(product));
 			await _context.SaveChangesAsync();
 
+		}
+
+		public async Task Delete(Guid productInBasketId, Guid userId) 
+		{
+			var basketEntity = await GetWithTracking(userId);
+			var productInBasket = basketEntity!.Products.FirstOrDefault(x => x.Id == productInBasketId);
+			basketEntity.Products.Remove(productInBasket!);
+			await _context.SaveChangesAsync();
+		}
+
+		public async Task ConfirmBasket(Guid userId, (Guid productId, int count)[] products)
+		{
+			var basketEntity = await GetWithTracking(userId);
+			foreach (var item in products)
+			{
+				basketEntity.Products.FirstOrDefault(x => x.Id == item.productId).Count = item.count;
+			}
+			_context.Baskets.Remove(basketEntity); // поки я не створив клас order де це все мало зберіатися)
+			await _context.SaveChangesAsync();
 		}
 	}
 }

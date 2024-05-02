@@ -33,11 +33,18 @@ namespace IntetnetStore.DataAccess.Repositories
 		public async Task<User> GetByEmail(string email)
 		{
 			var userEntity = await _context.Users
+				.Include(x => x.Roles)
 				.AsNoTracking()
 				.FirstOrDefaultAsync(x => x.Email == email) ?? throw new Exception();
 
+			ICollection<string> roles = [];
+
+			foreach (var role in userEntity.Roles)
+				roles.Add(role.Name);
+
 			if(userEntity != null)
-				return User.Create(userEntity.Id, userEntity.UserName, userEntity.Email, userEntity.PasswordHash).User;
+				return User.Create(userEntity.Id, userEntity.UserName, userEntity.Email, userEntity.PasswordHash, roles).User;
+
 			return null;
 		}
 		public async Task<User> GetById(Guid userId)
@@ -46,8 +53,14 @@ namespace IntetnetStore.DataAccess.Repositories
 				.AsNoTracking()
 				.FirstOrDefaultAsync(x => x.Id == userId) ?? throw new Exception();
 
+			ICollection<string> roles = [];
+
+			foreach (var role in userEntity.Roles)
+				roles.Add(role.Name);
+
 			if (userEntity != null)
-				return User.Create(userEntity.Id, userEntity.UserName, userEntity.Email, userEntity.PasswordHash).User;
+				return User.Create(userEntity.Id, userEntity.UserName, userEntity.Email, userEntity.PasswordHash, roles).User;
+
 			return null;
 		}
 		public async Task<bool> IsUniqueEmail(string email)

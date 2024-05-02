@@ -27,7 +27,7 @@ namespace InternetStore.Application.Services
 		{
 			var hashedPassword = _passwordHasher.Generate(password);
 
-			var user = User.Create(Guid.NewGuid(), userName, email, hashedPassword).User;
+			var user = User.Create(Guid.NewGuid(), userName, email, hashedPassword, new[] {"User"}).User;
 
 			await _userRepository.Add(user);
 		}
@@ -45,7 +45,7 @@ namespace InternetStore.Application.Services
 
 			var token = _jwtProvider.GenerateToken(user);
 
-			return (User.Create(user.Id,user.UserName,user.Email,"password").User, token);
+			return (User.Create(user.Id,user.UserName,user.Email,"password", user.Roles).User, token);
 		}
 		public async Task<bool> IsUniqueEmail(string email)
 		{
