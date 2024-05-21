@@ -1,4 +1,5 @@
-﻿using InternetStore.Core.Abstractions;
+﻿using AutoMapper;
+using InternetStore.Core.Abstractions;
 using InternetStore.Core.Enums;
 using InternetStore.Core.Models;
 using InternetStore.DataAccess;
@@ -10,9 +11,11 @@ namespace IntetnetStore.DataAccess.Repositories
 	public class UserRepository : IUserRepository
 	{
 		private readonly ProductStoreDBcontext _context;
-		public UserRepository(ProductStoreDBcontext context)
+		private readonly IMapper _mapper;
+		public UserRepository(ProductStoreDBcontext context, IMapper mapper)
 		{
 			_context = context;
+			_mapper = mapper;
 		}
 		public async Task Add(User user)
 		{
@@ -33,17 +36,26 @@ namespace IntetnetStore.DataAccess.Repositories
 		public async Task<User> GetByEmail(string email)
 		{
 			var userEntity = await _context.Users
-				.Include(x => x.Roles)
+				.Include(x => x.Products)
 				.AsNoTracking()
 				.FirstOrDefaultAsync(x => x.Email == email) ?? throw new Exception();
 
+			var userRoles = _context.UserRoles.Where(ur => ur.UserId == userEntity.Id).ToList();
+
 			ICollection<string> roles = [];
 
-			foreach (var role in userEntity.Roles)
-				roles.Add(role.Name);
+			foreach (var userRole in userRoles)
+			{
+				var roleName = Enum.GetName(typeof(Role), userRole.RoleId);
+				if (!string.IsNullOrEmpty(roleName))
+				{
+					roles.Add(roleName);
+				}
+			}
 
-			if(userEntity != null)
-				return User.Create(userEntity.Id, userEntity.UserName, userEntity.Email, userEntity.PasswordHash, roles).User;
+
+			if (userEntity != null)
+				return User.Create(userEntity.Id, userEntity.UserName, userEntity.Email, userEntity.PasswordHash, roles, _mapper.Map<ICollection<Product>>(userEntity.Products)).User;
 
 			return null;
 		}
@@ -59,7 +71,7 @@ namespace IntetnetStore.DataAccess.Repositories
 				roles.Add(role.Name);
 
 			if (userEntity != null)
-				return User.Create(userEntity.Id, userEntity.UserName, userEntity.Email, userEntity.PasswordHash, roles).User;
+				return User.Create(userEntity.Id, userEntity.UserName, userEntity.Email, userEntity.PasswordHash, roles, _mapper.Map<ICollection<Product>>(userEntity.Products)).User;
 
 			return null;
 		}

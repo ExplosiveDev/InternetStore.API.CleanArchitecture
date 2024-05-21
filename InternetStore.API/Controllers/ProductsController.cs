@@ -38,23 +38,23 @@ namespace InternetStore.API.Controllers
 			return Ok(_mapper.Map<ProductsResponse>(product));
 		}
 
-		[Authorize]
-		[HttpPost]
-		public async Task<ActionResult<Guid>> CreateProducts([FromBody] ProductsRequest request)
-		{
-			var (product, error) = Product.Create(Guid.NewGuid(), request.Name, request.Description, request.Price, request.ImagePath, request.Count,
-				Category.Create(request.Category.Id, request.Category.Name).Category, request.CategoryId,
-				Brand.Create(request.Brand.Id, request.Brand.Name).Brand, request.CategoryId);
+		//[Authorize]
+		//[HttpPost]
+		//public async Task<ActionResult<Guid>> CreateProducts([FromBody] ProductsRequest request)
+		//{
+		//	var (product, error) = Product.Create(Guid.NewGuid(), request.Name, request.Description, request.Price, request.ImagePath, request.Count,
+		//		Category.Create(request.Category.Id, request.Category.Name).Category, request.CategoryId,
+		//		Brand.Create(request.Brand.Id, request.Brand.Name).Brand, request.CategoryId);
 
-			if (!string.IsNullOrEmpty(error))
-			{
-				return BadRequest(error);
-			}
+		//	if (!string.IsNullOrEmpty(error))
+		//	{
+		//		return BadRequest(error);
+		//	}
 
-			var ProductId = await _productsService.CreateProduct(product);
+		//	var ProductId = await _productsService.CreateProduct(product);
 
-			return Ok(ProductId);
-		}
+		//	return Ok(ProductId);
+		//}
 
 		[Authorize]
 		[HttpPut("{id:guid}")]

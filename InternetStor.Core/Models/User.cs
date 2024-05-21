@@ -12,28 +12,30 @@ namespace InternetStore.Core.Models
 	{
 
 		public const int MAX_NAME_LENGHT = 64;
-		private User(Guid id, string userName, string email, string hashedPassword, ICollection<string> roles)
+		private User(Guid id, string userName, string email, string hashedPassword, ICollection<string> roles, ICollection<Product> products)
         {
             Id = id;
             UserName = userName;
             PasswordHash = hashedPassword;
             Email = email;
             Roles = roles;
+			Products = products;
         }
         public Guid Id { get; set; }
 		public string UserName { get; private set; }
 		public string PasswordHash { get; private set; }
 		public string Email { get; private set; }
         public ICollection<string> Roles { get; private set; } = [];
+		public ICollection<Product> Products { get; private set; } = [];
 
-        public static (User User, string Error) Create(Guid id, string userName, string email, string hashedPassword, ICollection<string> roles)
+		public static (User User, string Error) Create(Guid id, string userName, string email, string hashedPassword, ICollection<string> roles, ICollection<Product> products)
         {
 			var error = string.Empty;
 
 			if (string.IsNullOrEmpty(userName) || userName.Length > MAX_NAME_LENGHT)
 				error = "Product name can't be empty or longer then " + MAX_NAME_LENGHT + " characters\n";
 
-            var user = new User(id, userName, email, hashedPassword, roles);
+            var user = new User(id, userName, email, hashedPassword, roles, products);
 
 			return (user, error);
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InternetStore.DataAccess.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,5 +15,6 @@ namespace IntetnetStore.DataAccess.Entities
 		public string Email { get; set; } = string.Empty;
 
 		public ICollection<RoleEntity> Roles { get; set; } = [];
+		public ICollection<ProductEntity> Products { get; set; } = [];
 	}
 }

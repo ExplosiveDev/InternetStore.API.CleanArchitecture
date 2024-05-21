@@ -19,7 +19,8 @@ namespace IntetnetStore.DataAccess.Seeder
 					ImagePath = @"https://content2.rozetka.com.ua/goods/images/big/343096346.jpg",
 					Count = 1,
 					CategoryId = Guid.Parse("b61decb4-84d9-4057-b1e4-d7fb612d1d8f"),
-					BrandId = Guid.Parse("48be627a-fea0-477f-8682-f9b9725c387b")
+					BrandId = Guid.Parse("48be627a-fea0-477f-8682-f9b9725c387b"),
+					SellerId = Guid.Parse("57322de4-860d-4c50-950a-0e88f87d096c")
 				},
 				new ProductEntity{
 					Id = Guid.NewGuid(),
@@ -29,7 +30,8 @@ namespace IntetnetStore.DataAccess.Seeder
 					ImagePath = @"https://content2.rozetka.com.ua/goods/images/big/347802389.jpg",
 					Count = 1,
 					CategoryId = Guid.Parse("b61decb4-84d9-4057-b1e4-d7fb612d1d8f"),
-					BrandId = Guid.Parse("0bc0af50-0c40-4912-a453-fae84802afe6")
+					BrandId = Guid.Parse("0bc0af50-0c40-4912-a453-fae84802afe6"),
+					SellerId = Guid.Parse("57322de4-860d-4c50-950a-0e88f87d096c")
 				},
 				new ProductEntity{
 					Id = Guid.NewGuid(),
@@ -39,7 +41,8 @@ namespace IntetnetStore.DataAccess.Seeder
 					ImagePath = @"https://content1.rozetka.com.ua/goods/images/big/334484472.jpg",
 					Count = 1,
 					CategoryId = Guid.Parse("b61decb4-84d9-4057-b1e4-d7fb612d1d8f"),
-					BrandId = Guid.Parse("46a417c5-5e5f-448c-9811-dd96cfeddf2c")
+					BrandId = Guid.Parse("46a417c5-5e5f-448c-9811-dd96cfeddf2c"),
+					SellerId = Guid.Parse("57322de4-860d-4c50-950a-0e88f87d096c")
 				},
 				new ProductEntity{
 					Id = Guid.NewGuid(),
@@ -49,7 +52,8 @@ namespace IntetnetStore.DataAccess.Seeder
 					ImagePath = @"https://content.rozetka.com.ua/goods/images/big/364834229.jpg",
 					Count = 1,
 					CategoryId = Guid.Parse("7d7dde3b-1176-47fa-86d4-be71afd4ffce"),
-					BrandId = Guid.Parse("bf383338-5fab-4845-a5bb-79c7288b4739")
+					BrandId = Guid.Parse("bf383338-5fab-4845-a5bb-79c7288b4739"),
+					SellerId = Guid.Parse("57322de4-860d-4c50-950a-0e88f87d096c")
 				},
 				new ProductEntity{
 					Id = Guid.NewGuid(),
@@ -59,7 +63,8 @@ namespace IntetnetStore.DataAccess.Seeder
 					ImagePath = @"https://content.rozetka.com.ua/goods/images/big/30872889.jpg",
 					Count = 1,
 					CategoryId = Guid.Parse("7d7dde3b-1176-47fa-86d4-be71afd4ffce"),
-					BrandId = Guid.Parse("bf383338-5fab-4845-a5bb-79c7288b4739")
+					BrandId = Guid.Parse("bf383338-5fab-4845-a5bb-79c7288b4739"),
+					SellerId = Guid.Parse("57322de4-860d-4c50-950a-0e88f87d096c")
 				},
 			};
 			return ListProducts;
@@ -87,6 +92,17 @@ namespace IntetnetStore.DataAccess.Seeder
 
 			return ListBrands;
 		}
+		public static List<UserEntity> GetUser()
+		{
+			List<UserEntity> ListUsers = new List<UserEntity>()
+			{
+				new UserEntity {Id = Guid.Parse("6c0136a2-48d9-450f-9814-5cba270dce14"), Email = "Vldgromovij@gmail.com", PasswordHash = "$2a$11$1m1GjCBPIuOWxIbPWYNMYu8NvAPFkxJLIhr0x26NzVnSA905TAk4a", Products = [], Roles = { new RoleEntity {Name = "Admin" } }, UserName = "VladGromovij" },
+				new UserEntity {Id = Guid.Parse("57322de4-860d-4c50-950a-0e88f87d096c"), Email = "Saller@gmail.com", PasswordHash = "$2a$11$1m1GjCBPIuOWxIbPWYNMYu8NvAPFkxJLIhr0x26NzVnSA905TAk4a", Products = [], Roles = { new RoleEntity {Name = "Saller" } }, UserName = "Saller" }
+			};
+
+			return ListUsers;
+		}
+
 	}
 }
 

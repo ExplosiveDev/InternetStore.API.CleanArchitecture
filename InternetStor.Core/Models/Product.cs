@@ -11,7 +11,7 @@ namespace InternetStore.Core.Models
 	{
 		public const int MAX_NAME_LENGHT = 252;
 		public const int MAX_DESCRIPTION_LENGHT = 1024;
-        private Product(Guid id, string name, string description, decimal price, string imagePath, int count, Category? category, Guid categoryId, Brand? brand, Guid brandId)
+        private Product(Guid id, string name, string description, decimal price, string imagePath, int count, Category? category, Guid categoryId, Brand? brand, Guid brandId, User seller, Guid sellerId)
         {
             Id = id; Name = name; 
 			Description = description; 
@@ -22,8 +22,11 @@ namespace InternetStore.Core.Models
 			CategoryId = categoryId;
 			Brand = brand;
 			BrandId = brandId;
-        }
-		private Product(Guid id, string name, string description, decimal price, string imagePath, int count, Guid categoryId, Guid brandId)
+			Seller = seller;
+			SellerId = sellerId;
+
+		}
+		private Product(Guid id, string name, string description, decimal price, string imagePath, int count, Guid categoryId, Guid brandId, Guid sellerId)
 		{
 			Id = id; Name = name;
 			Description = description;
@@ -32,6 +35,7 @@ namespace InternetStore.Core.Models
 			Count = count;
 			CategoryId = categoryId;
 			BrandId = brandId;
+			SellerId = sellerId;
 		}
 		public Guid Id { get; }
 		public string Name { get; }
@@ -44,9 +48,11 @@ namespace InternetStore.Core.Models
 		public Guid CategoryId { get; }
 		public Brand? Brand { get; }
 		public Guid BrandId { get; }
+		public User? Seller { get; set; }
+		public Guid SellerId { get; set; }
 
 		public static (Product Product, string Error ) 
-			Create(Guid id, string name, string description, decimal price, string imagePath, int count, Category? category, Guid categoryId, Brand? brand, Guid brandId)
+			Create(Guid id, string name, string description, decimal price, string imagePath, int count, Category? category, Guid categoryId, Brand? brand, Guid brandId, User seller, Guid sellerId)
 		{
 			var error = string.Empty;
 
@@ -57,12 +63,12 @@ namespace InternetStore.Core.Models
 			if (price <= 0)
 				error += "Price can't be less than or equal to 0\n";
 
-			var product = new Product(id,name,description,price,imagePath,count,category,categoryId,brand,brandId);
+			var product = new Product(id,name,description,price,imagePath,count,category,categoryId,brand,brandId,seller,sellerId);
 
 			return (product, error);
 		}
 		public static (Product Product, string Error)
-			CreateWithOutSensetiveData(Guid id, string name, string description, decimal price, string imagePath, int count, Guid categoryId, Guid brandId)
+			CreateWithOutSensetiveData(Guid id, string name, string description, decimal price, string imagePath, int count, Guid categoryId, Guid brandId, Guid sellerId)
 		{
 			var error = string.Empty;
 
@@ -73,7 +79,7 @@ namespace InternetStore.Core.Models
 			if (price <= 0)
 				error += "Price can't be less than or equal to 0\n";
 
-			var product = new Product(id, name, description, price, imagePath, count, categoryId,brandId);
+			var product = new Product(id, name, description, price, imagePath, count, categoryId,brandId,sellerId);
 
 			return (product, error);
 		}

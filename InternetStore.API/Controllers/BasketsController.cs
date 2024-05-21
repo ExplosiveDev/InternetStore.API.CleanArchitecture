@@ -18,13 +18,15 @@ namespace InternetStore.API.Controllers
 	{
 		private readonly IBasketService _basketService;
 		private readonly IProductsService _productsService;
+		private readonly IUserService _usersService;
 		private readonly IMapper _mapper;
 
-		public BasketsController(IBasketService basketService, IMapper mapper, IProductsService productsService)
+		public BasketsController(IBasketService basketService, IMapper mapper, IProductsService productsService, IUserService usersService)
 		{
 			_basketService = basketService;
 			_mapper = mapper;
 			_productsService = productsService;
+			_usersService = usersService;
 		}
 
 		[HttpGet("{userId:guid}")]
@@ -39,14 +41,15 @@ namespace InternetStore.API.Controllers
 		public async Task<ActionResult<ProductInBasketResponse>> AddProductToBasket([FromBody] AddProductInBasketRequest request, Guid userId)
 		{
 			var prodEntity = await _productsService.GetByIdProduct(request.id);
-			if(prodEntity == null)
+			if (prodEntity == null)
 			{
-				return NotFound(new {message = "Product not found"});
+				return NotFound(new { message = "Product not found" });
 			}
 
 			try
 			{
-				var prod = Product.Create(prodEntity.Id, prodEntity.Name, prodEntity.Description, prodEntity.Price, prodEntity.ImagePath, prodEntity.Count, prodEntity.Category, prodEntity.CategoryId, prodEntity.Brand, prodEntity.BrandId).Product;
+				var seller = await _usersService.GetById(userId);
+				var prod = Product.Create(prodEntity.Id, prodEntity.Name, prodEntity.Description, prodEntity.Price, prodEntity.ImagePath, prodEntity.Count, prodEntity.Category, prodEntity.CategoryId, prodEntity.Brand, prodEntity.BrandId, seller, seller.Id).Product;
 				var id = await _basketService.AddToBasket(prod, userId);
 				return Ok(new ProductInBasketResponse(id, prod, 1));
 			}

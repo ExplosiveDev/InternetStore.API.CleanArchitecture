@@ -8,5 +8,6 @@ namespace InternetStore.Application.Services
 		Task<(User user, string token)> Login(string email, string password);
 		Task Register(string userName, string email, string password);
 		Task<bool> IsUniqueEmail(string email);
+		Task<User> GetById(Guid userId);
 	}
 }

@@ -27,11 +27,33 @@ namespace IntetnetStore.DataAccess.Configuration
 			builder.Property(x => x.PasswordHash)
 				.IsRequired();
 
-			builder.HasMany(u => u.Roles)
-				.WithMany(r => r.Users)
-				.UsingEntity<UserRoleEntity>(
-					l => l.HasOne<RoleEntity>().WithMany().HasForeignKey(r => r.RoleId),
-					r => r.HasOne<UserEntity>().WithMany().HasForeignKey(u => u.UserId));
+			//builder.HasMany(u => u.Roles)
+			//	.WithMany(r => r.Users)
+			//	.UsingEntity<UserRoleEntity>(
+			//		l => l.HasOne<RoleEntity>().WithMany().HasForeignKey(r => r.RoleId),
+			//		r => r.HasOne<UserEntity>().WithMany().HasForeignKey(u => u.UserId));
+
+			builder.HasMany(u => u.Products).
+				WithOne(p => p.Seller).
+				HasForeignKey(p => p.SellerId);
+
+			//Seed data
+			builder.HasData(
+				new UserEntity
+				{
+					Id = Guid.Parse("6c0136a2-48d9-450f-9814-5cba270dce14"),
+					Email = "Vldgromovij@gmail.com",
+					PasswordHash = "$2a$11$1m1GjCBPIuOWxIbPWYNMYu8NvAPFkxJLIhr0x26NzVnSA905TAk4a",
+					UserName = "VladGromovij"
+				},
+				new UserEntity
+				{
+					Id = Guid.Parse("57322de4-860d-4c50-950a-0e88f87d096c"),
+					Email = "Saller@gmail.com",
+					PasswordHash = "$2a$11$1m1GjCBPIuOWxIbPWYNMYu8NvAPFkxJLIhr0x26NzVnSA905TAk4a",
+					UserName = "Saller"
+				}
+			);
 		}
 	}
 }

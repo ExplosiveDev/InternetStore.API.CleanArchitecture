@@ -20,6 +20,8 @@ namespace InternetStore.DataAccess.Entities
 		public Guid CategoryId { get; set; }
 		public BrandEntity? Brand { get; set; }
 		public Guid BrandId { get; set; }
+		public UserEntity? Seller { get; set; }
+		public Guid SellerId { get; set; }
 
 	}
 }
